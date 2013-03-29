@@ -1,0 +1,28 @@
+﻿Build started 3/29/2013 9:54:52 PM.
+     1>Project "D:\Study\OpenCV Projects\gp_object_tracking_tidy\gp_object_tracking_tidy\gp_object_tracking_tidy.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "x64\Debug\gp_object_tracking_tidy.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\OpenCV 2.3.1\build\include" /Zi /nologo /W3 /WX- /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>main.cpp(12): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>main.cpp(16): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>main.cpp(228): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>main.cpp(274): warning C4305: '=' : truncation from 'double' to 'float'
+     1>main.cpp(297): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>main.cpp(298): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>main.cpp(299): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.exe" /NOLOGO /LIBPATH:"C:\OpenCV 2.3.1\build\x64\vc10\lib" opencv_calib3d231d.lib opencv_contrib231d.lib opencv_core231d.lib opencv_features2d231d.lib opencv_flann231d.lib opencv_gpu231d.lib opencv_haartraining_engined.lib opencv_highgui231d.lib opencv_imgproc231d.lib opencv_legacy231d.lib opencv_ml231d.lib opencv_objdetect231d.lib opencv_ts231d.lib opencv_video231d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\gp_object_tracking_tidy.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.lib" /MACHINE:X64 x64\Debug\main.obj
+         LINK : D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.exe not found or not built by the last incremental link; performing full link
+         gp_object_tracking_tidy.vcxproj -> D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\Study\OpenCV Projects\gp_object_tracking_tidy\x64\Debug\gp_object_tracking_tidy.exe;#1" /manifest x64\Debug\gp_object_tracking_tidy.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "x64\Debug\gp_object_tracking_tidy.unsuccessfulbuild".
+         Touching "x64\Debug\gp_object_tracking_tidy.lastbuildstate".
+     1>Done Building Project "D:\Study\OpenCV Projects\gp_object_tracking_tidy\gp_object_tracking_tidy\gp_object_tracking_tidy.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.39

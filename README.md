@@ -1,6 +1,6 @@
 Kernel-Based-Object-Tracking
 ============================
-  Requirements
+REQUIREMENTS:
   + OpenCV 2.2 or above (originally developed on OpenCV 2.3.1)
   + This a Visual Studio 2010 project with OpenCV 2.3.1 linked. To use on other platforms use only main.cpp with "conio" and "getch" removed.
 

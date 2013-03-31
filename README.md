@@ -7,5 +7,5 @@ REQUIREMENTS:
 
 This project is the C++ implementation of kernel based object tracking as discussed by Visvanathan Ramesh, Dorin Comaniciu &amp; Peter Meer in their paper "Kernel-Based Object Tracking".
 
-In this project the objects are represented by their color histograms weighted by isotropic kernel. Targets (or objects) are compared in subsequent frames to calculate the bhattacharya distance which is subsequently used to move the tracked using mean shift.
+In this project the objects are represented by their color histograms weighted by isotropic kernel. Targets (or objects) are compared in subsequent frames to calculate Bhattacharya distance which is then used to move the tracked using mean shift.
 

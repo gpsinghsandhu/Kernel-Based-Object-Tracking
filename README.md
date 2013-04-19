@@ -9,3 +9,5 @@ This project is the C++ implementation of kernel based object tracking as discus
 
 In this project the objects are represented by their color histograms weighted by isotropic kernel. Targets (or objects) are compared in subsequent frames to calculate Bhattacharya distance which is then used to move the tracked using mean shift.
 
+Ceck out the result video - http://youtu.be/Ng8H-mjs62Y
+

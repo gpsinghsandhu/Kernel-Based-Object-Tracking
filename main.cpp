@@ -42,7 +42,7 @@ the use of this software, even if advised of the possibility of such damage.*/
 
 
 cv::Mat kernel;
-float kernel_sum = 0;
+float kernel_sum = 0.0;
 int count=0;
 float pi1 = 3.142;
 int total_iter = 0;
@@ -177,7 +177,7 @@ void main()
 
 			//std::cout << "\n" << k;
 
-			if((next_box.x-box.x)<1 && (next_box.y-box.y)<1)
+			if(abs(next_box.x-box.x)<1 && abs(next_box.y-box.y)<1)
 			{
 				//std::cout <<"\n \n success\n" << k;
 				total_iter += k;
@@ -259,6 +259,8 @@ void create_kernel(cv::Mat &kernel)
 	int ck_no_rows = kernel.rows;
 	int ck_no_cols = kernel.cols;
 	float ck_centre[2] = {float((ck_no_cols-1)/2), float((ck_no_rows-1)/2)};
+	
+	kernel_sum = 0.0;
 
 	float parameter_cd = 0.1*pi1*ck_no_rows*ck_no_rows;
 	std::cout << '\n' << parameter_cd;
@@ -292,7 +294,7 @@ cv::Mat create_target_model(cv::Mat &input_image, int *patch_centre,cv::Mat &inp
 {
 
 	//const int size[3] = {no_of_bins,1};
-	cv::Mat target_model(3,no_of_bins,CV_32F,cv::Scalar(0));
+	cv::Mat target_model(3,no_of_bins,CV_32F,cv::Scalar(1e-10));
 
 	int no_of_channels = input_image.channels();
 
@@ -305,8 +307,8 @@ cv::Mat create_target_model(cv::Mat &input_image, int *patch_centre,cv::Mat &inp
 	int y_img = patch_centre[1]-(ctm_no_rows-1)/2;
 	
 	
-	for(int i=0;i<target_model.rows;i++)
-		target_model.at<float>(i,0) = 1e-10;
+	//for(int i=0;i<target_model.rows;i++)
+	//	target_model.at<float>(i,0) = 1e-10;
 
 	/*std::cout << '\n';
 	for(int i=0;i<bgr_planes[0].rows;i++)
@@ -326,9 +328,9 @@ cv::Mat create_target_model(cv::Mat &input_image, int *patch_centre,cv::Mat &inp
 			for(int j=0;j<ctm_no_rows;j++)
 			{
 				curr_pixel_value = input_image.at<cv::Vec3b>(x_img,y_img);
-				bin_value[0] = (curr_pixel_value[0]/no_of_bins);
-				bin_value[1] = (curr_pixel_value[1]/no_of_bins);
-				bin_value[2] = (curr_pixel_value[2]/no_of_bins);
+				bin_value[0] = (curr_pixel_value[0]/bin_width);
+				bin_value[1] = (curr_pixel_value[1]/bin_width);
+				bin_value[2] = (curr_pixel_value[2]/bin_width);
 				target_model.at<float>(0,bin_value[0]) += input_kernel.at<float>(i,j)/(kernel_sum);
 				target_model.at<float>(1,bin_value[1]) += input_kernel.at<float>(i,j)/(kernel_sum);
 				target_model.at<float>(2,bin_value[2]) += input_kernel.at<float>(i,j)/(kernel_sum);
@@ -392,17 +394,17 @@ cv::Mat assign_weight(cv::Mat &input_image,cv::Mat &target_model,cv::Mat &target
 	int aw_no_of_rows = box.height>box.width?box.width:box.height;
 	int aw_no_of_cols = box.height>box.width?box.width:box.height;
 
-	cv::Mat weight(aw_no_of_rows,aw_no_of_cols,CV_32F,cv::Scalar(0));
+	cv::Mat weight(aw_no_of_rows,aw_no_of_cols,CV_32F,cv::Scalar(1.0000));
 
 	std::vector<cv::Mat> bgr_planes;
 
 	split(input_image, bgr_planes);
 
-	for(int i = 0; i < weight.rows; i++)
-		for(int j = 0; j < weight.cols; j++)
-		{
-			weight.at<float>(i,j) = 1.0000;
-		}
+	//for(int i = 0; i < weight.rows; i++)
+	//	for(int j = 0; j < weight.cols; j++)
+	//	{
+	//		weight.at<float>(i,j) = 1.0000;
+	//	}
 
 
 	int i_img = box.y;
@@ -422,7 +424,7 @@ cv::Mat assign_weight(cv::Mat &input_image,cv::Mat &target_model,cv::Mat &target
 				curr_pixel = static_cast<int>(bgr_planes[k].at<uchar>(i_img,j_img));
 				bin_value = check_bin_for_pixel(curr_pixel,no_of_bins,range);
 
-				weight.at<float>(i,j) *= static_cast<float>((sqrt(target_model.at<float>(bin_value + (k*no_of_bins),0)/target_candidate.at<float>(bin_value + (k*no_of_bins),0))));
+				weight.at<float>(i,j) *= static_cast<float>((sqrt(target_model.at<float>(k, bin_value)/target_candidate.at<float>(k, bin_value))));
 			
 			j_img++;		
 			}
@@ -464,7 +466,8 @@ float calc_bhattacharya(cv::Mat &target_model,cv::Mat &target_candidate)
 
 	for(int i = 0; i < target_model.rows; i++)
 	{
-		p_bar += sqrt((target_candidate.at<float>(i,0))*(target_model.at<float>(i,0)));
+		for(int j=0; j < target_model.cols; j++)
+			p_bar += sqrt((target_candidate.at<float>(i,j))*(target_model.at<float>(i,j)));
 	}
 
 	dist = sqrt(1-p_bar);

@@ -395,6 +395,7 @@ cv::Mat assign_weight(cv::Mat &input_image,cv::Mat &target_model,cv::Mat &target
 	int aw_no_of_cols = box.height>box.width?box.width:box.height;
 
 	cv::Mat weight(aw_no_of_rows,aw_no_of_cols,CV_32F,cv::Scalar(1.0000));
+	int bin_width = cvRound(float(range)/float(no_of_bins));
 
 	std::vector<cv::Mat> bgr_planes;
 
@@ -422,8 +423,8 @@ cv::Mat assign_weight(cv::Mat &input_image,cv::Mat &target_model,cv::Mat &target
 			for(int j=0;j<aw_no_of_cols;j++)
 			{
 				curr_pixel = static_cast<int>(bgr_planes[k].at<uchar>(i_img,j_img));
-				bin_value = check_bin_for_pixel(curr_pixel,no_of_bins,range);
-
+				//bin_value = check_bin_for_pixel(curr_pixel,no_of_bins,range);
+				bin_value = bin_value/bin_width;
 				weight.at<float>(i,j) *= static_cast<float>((sqrt(target_model.at<float>(k, bin_value)/target_candidate.at<float>(k, bin_value))));
 			
 			j_img++;		

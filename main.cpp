@@ -424,7 +424,7 @@ cv::Mat assign_weight(cv::Mat &input_image,cv::Mat &target_model,cv::Mat &target
 			{
 				curr_pixel = static_cast<int>(bgr_planes[k].at<uchar>(i_img,j_img));
 				//bin_value = check_bin_for_pixel(curr_pixel,no_of_bins,range);
-				bin_value = bin_value/bin_width;
+				bin_value = curr_pixel/bin_width;
 				weight.at<float>(i,j) *= static_cast<float>((sqrt(target_model.at<float>(k, bin_value)/target_candidate.at<float>(k, bin_value))));
 			
 			j_img++;		
